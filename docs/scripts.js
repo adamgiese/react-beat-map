@@ -34,6 +34,7 @@ class Beats extends React.Component {
 
     let durations = Array(12).fill(200);
     let frequencies = [notes.C / 2, notes.D / 2, notes.E / 2, notes.G / 2, notes.A / 2, notes.C, notes.D, notes.E, notes.G, notes.A, notes.C * 2];
+
     var map = Array(durations.length).fill(null);
     for (var i in map) {
       map[i] = Array(frequencies.length).fill(false);
@@ -67,10 +68,8 @@ class Beats extends React.Component {
     iterate();
   }
   render() {
-
     var beats = [];
     for (var i = 0; i < this.state.durations.length; i++) {
-
       var isCurrent = this.state.current === i;
       beats.push(React.createElement(Beat, {
         beatIndex: i,
@@ -94,7 +93,6 @@ class Beat extends React.Component {
     var tiles = [];
 
     for (var i = 0; i < this.props.frequencies.length; i++) {
-
       tiles.push(React.createElement(Tile, {
         tileIndex: i,
         isActive: this.props.activeTiles[i],
@@ -102,7 +100,6 @@ class Beat extends React.Component {
         beatIndex: this.props.beatIndex,
         frequency: this.props.frequencies[i],
         duration: this.props.duration,
-
         onClick: (beatIndex, tileIndex) => this.props.onClick(beatIndex, tileIndex)
       }));
     }
@@ -117,7 +114,6 @@ class Beat extends React.Component {
 }
 
 class Tile extends React.Component {
-
   render() {
     if (this.props.isActive && this.props.isCurrent) {
       let note = new Sound(audioContext);
@@ -135,7 +131,6 @@ class Tile extends React.Component {
 
 class Sound {
   //edited from https://css-tricks.com/introduction-web-audio-api/#article-header-id-4
-
   constructor(context) {
     this.context = context;
   }
@@ -143,7 +138,6 @@ class Sound {
   init() {
     this.oscillator = this.context.createOscillator();
     this.gainNode = this.context.createGain();
-
     this.oscillator.connect(this.gainNode);
     this.gainNode.connect(this.context.destination);
     this.oscillator.type = 'sine';
@@ -151,10 +145,8 @@ class Sound {
 
   play(value, time, duration = 1) {
     this.init();
-
     this.oscillator.frequency.value = value;
     this.gainNode.gain.setValueAtTime(1, this.context.currentTime);
-
     this.oscillator.start(time);
     this.stop(time, duration);
   }
@@ -163,7 +155,6 @@ class Sound {
     this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + duration / 1000);
     this.oscillator.stop(time + duration / 1000);
   }
-
 }
 
 var audioContext = new (window.AudioContext || window.webkitAudioContext)();

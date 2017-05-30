@@ -21,10 +21,10 @@ C: 523.25,
 class App extends React.Component {
   render() {
     return(
-        <div className='app'>
+      <div className='app'>
         <Beats />
-        </div>
-        );
+      </div>
+    );
   }
 }
 
@@ -45,62 +45,61 @@ class Beats extends React.Component {
       notes.G,
       notes.A,
       notes.C*2
-    ]
+    ];
+
     var map = Array(durations.length).fill(null);
     for (var i in map) {
       map[i] = Array(frequencies.length).fill(false);
     }
 
     this.state = {
-current: 0,
-         frequencies: frequencies,
-         durations: durations,
-         map: map
-    }    
+      current: 0,
+      frequencies: frequencies,
+      durations: durations,
+      map: map
+    };  
   }
 
   handleTileClick(beatIndex, tileIndex) {
     var newMap = this.state.map.slice();
     newMap[beatIndex][tileIndex] = !newMap[beatIndex][tileIndex];
     this.setState({
-map: newMap
-})
-}
-
-componentDidMount() {
-  var iterate = () => {
-    var newCurrent = (this.state.current + 1 >= this.state.durations.length ? 0 : this.state.current + 1);
-    this.setState({
-        'current': newCurrent
-        });
-    var duration = this.state.durations[newCurrent];
-    setTimeout(iterate, duration)
+      map: newMap
+    })
   }
-  iterate();  
-}
-render() {
 
-  var beats = [];
-  for (var i = 0; i < this.state.durations.length; i++) {
-
-    var isCurrent = (this.state.current === i)
+  componentDidMount() {
+    var iterate = () => {
+      var newCurrent = (this.state.current + 1 >= this.state.durations.length ? 0 : this.state.current + 1);
+      this.setState({
+        'current': newCurrent
+      });
+      var duration = this.state.durations[newCurrent];
+      setTimeout(iterate, duration)
+    };
+    iterate();  
+  }
+  render() {
+    var beats = [];
+    for (var i = 0; i < this.state.durations.length; i++) {
+      var isCurrent = (this.state.current === i);
       beats.push(
-          <Beat 
+        <Beat 
           beatIndex={i}
           activeTiles={this.state.map[i]}
           isCurrent={isCurrent} 
           duration={this.state.durations[i]} 
           frequencies={this.state.frequencies}
           onClick = {(beatIndex, tileIndex) => this.handleTileClick(beatIndex, tileIndex)}
-          />
-          );
-  }
-  return (
-      <div className="beats">
-      {beats}
-      </div>
+        />
       );
-}
+    }
+    return (
+      <div className="beats">
+        {beats}
+      </div>
+    );
+  }
 }
 
 class Beat extends React.Component {
@@ -108,32 +107,29 @@ class Beat extends React.Component {
     var tiles = [];
 
     for (var i = 0; i < this.props.frequencies.length; i++) {
-
       tiles.push(
-          <Tile 
+        <Tile 
           tileIndex={i}
           isActive={this.props.activeTiles[i]}
           isCurrent={this.props.isCurrent}
           beatIndex={this.props.beatIndex}
           frequency={this.props.frequencies[i]}
           duration={this.props.duration}
-
           onClick={(beatIndex, tileIndex) => this.props.onClick(beatIndex, tileIndex)}
-          />
-          );
+        />
+      );
     }
     var activeState = (this.props.isCurrent ? 'active' : 'inactive');
     return (
-        <div className={`${activeState} beat`}>
+      <div className={`${activeState} beat`}>
         {tiles}
         <div className={'beat-indicator'}></div>
-        </div>
-        );  
+      </div>
+    );  
   }
 }
 
 class Tile extends React.Component {
-
   render() {
     if (this.props.isActive && this.props.isCurrent) {
       let note = new Sound(audioContext);
@@ -142,20 +138,19 @@ class Tile extends React.Component {
     }
     var activeState = (this.props.isActive ? 'active' : 'inactive');
     return (
-        <button 
+      <button 
         className={`tile ${activeState}`}
         style={
-        {fontSize: `${this.props.duration/500}em`}
+          {fontSize: `${this.props.duration/500}em`}
         }
         onClick={(beatIndex, tileIndex) => this.props.onClick(this.props.beatIndex, this.props.tileIndex)}
         >
-        </button>
-        );
+      </button>
+    );
   }
 }
 
 class Sound { //edited from https://css-tricks.com/introduction-web-audio-api/#article-header-id-4
-
   constructor(context) {
     this.context = context;
   }
@@ -163,7 +158,6 @@ class Sound { //edited from https://css-tricks.com/introduction-web-audio-api/#a
   init() {
     this.oscillator = this.context.createOscillator();
     this.gainNode = this.context.createGain();
-
     this.oscillator.connect(this.gainNode);
     this.gainNode.connect(this.context.destination);
     this.oscillator.type = 'sine';
@@ -171,20 +165,16 @@ class Sound { //edited from https://css-tricks.com/introduction-web-audio-api/#a
 
   play(value, time, duration=1) {
     this.init();
-
     this.oscillator.frequency.value = value;
     this.gainNode.gain.setValueAtTime(1, this.context.currentTime);
-
     this.oscillator.start(time);
     this.stop(time, duration);
-
   }
 
   stop(time, duration) {
     this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + duration/1000);
     this.oscillator.stop(time + duration/1000);
   }
-
 }
 
 var audioContext = new (window.AudioContext || window.webkitAudioContext)();
