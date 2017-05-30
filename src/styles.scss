@@ -1,0 +1,54 @@
+$tile-size: 2rem;
+$tile-gutter: .25rem;
+$dark-blue: #061826;
+$light-blue: #89AAE6;
+$blue: #0471A6;
+$purple: #AC80A0;
+
+.app {
+  background: $dark-blue;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;  
+  padding: 0 $tile-gutter;
+}
+
+.beats {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.beat {
+  margin: 0 $tile-gutter;
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+
+  &-indicator {
+    height: $tile-gutter;
+    background: grey;
+
+    .beat.active & {
+      background: red;
+    }
+  }
+}
+
+.tile {
+  flex: 1 auto;
+  border: none;
+  margin: $tile-gutter 0;
+  background: $blue;
+  display: block;
+
+  &.active {
+    background: $light-blue;
+
+    .beat.active & {
+      background: $purple;
+    }
+  }
+}
