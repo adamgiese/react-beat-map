@@ -5,6 +5,10 @@ $light-blue: #89AAE6;
 $blue: #0471A6;
 $purple: #AC80A0;
 
+body {
+  margin: 0;
+}
+
 .app {
   background: $dark-blue;
   display: flex;

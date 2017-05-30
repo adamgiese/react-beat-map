@@ -1,3 +1,6 @@
+body {
+  margin: 0; }
+
 .app {
   background: #061826;
   display: flex;
