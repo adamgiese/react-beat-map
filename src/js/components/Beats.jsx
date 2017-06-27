@@ -18,10 +18,28 @@ export default class Beats extends React.Component {
       Notes('G',5),
     ];
 
-    let map = Array(durations.length).fill(null);
-    map.forEach(function(beat, index) {
-      map[index] = Array(frequencies.length).fill(false);
-    });
+    let map = [];
+    const params = new URL(document.location).searchParams;
+    if (params.get('beats')) {
+      map = params.get('beats').split('|').map(
+        (beat) => {
+          return parseInt(beat, 36) //convert to decimal
+          .toString(2) //convert to binary
+          .padStart(frequencies.length, 0) //ensure each array is the correct length
+          .split('') // set as array
+          .map(
+            (tile) => {
+              return (tile === "1") ? true : false;
+            }
+          );
+        }
+      );
+    } else {
+      map = Array(durations.length).fill(null);
+      map.forEach(function(beat, index) {
+        map[index] = Array(frequencies.length).fill(false);
+      });
+    }
 
     this.state = {
       current: 0,
@@ -35,13 +53,32 @@ export default class Beats extends React.Component {
     let newMap = this.state.map.slice();
     newMap[beatIndex][tileIndex] = !newMap[beatIndex][tileIndex];
 
+    const mapURL = newMap.map(
+      (beat) => {
+        return parseInt(beat.map(
+          (tile) => {
+            return tile ? 1 : 0;
+          }
+        ).join(''), 2).toString(36);
+      }
+    ).join('|');
+    console.log(mapURL);
+
+    if (history.replaceState) {
+      const historyState = {
+        beats: mapURL
+      };
+      const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${window.location.pathname}?beats=${mapURL}`;
+
+      history.pushState(historyState, 'Beats', url);
+    }
+
     this.setState({
       map: newMap
     })
   }
 
   componentDidMount() {
-    console.log('iterate?');
     const iterate = () => {
       const newCurrent = (this.state.current + 1 >= this.state.durations.length ? 0 : this.state.current + 1);
       const duration = this.state.durations[newCurrent];
