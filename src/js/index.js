@@ -1,36 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
-import WebFont from 'webfontloader';
+import Notes from './components/Notes.jsx';
 
-//styling
 require('./../scss/styles.scss');
-WebFont.load({
-  google: {
-    families: ['Lato']
-  }
-});
+const durations = Array(12).fill(200);
+const frequencies = [
+  Notes('C',4),
+  Notes('D',4),
+  Notes('E',4),
+  Notes('G',4),
+  Notes('A',4),
+  Notes('C',5),
+  Notes('D',5),
+  Notes('E',5),
+  Notes('G',5),
+];
 
-//polyfill for older browswers
-require('es6-promise').polyfill();
-
-// string padStart polyfill
-if (!String.prototype.padStart) {
-  String.prototype.padStart = function padStart(targetLength,padString) {
-    targetLength = targetLength>>0; //floor if number or convert non-number to 0;
-    padString = String(padString || ' ');
-    if (this.length > targetLength) {
-      return String(this);
-    }
-    else {
-      targetLength = targetLength-this.length;
-      if (targetLength > padString.length) {
-        padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
-      }
-      return padString.slice(0,targetLength) + String(this);
-    }
-  };
-}
-
-//app init
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <App 
+    durations={durations}
+    frequencies={frequencies}
+  />
+  , document.getElementById('root'));

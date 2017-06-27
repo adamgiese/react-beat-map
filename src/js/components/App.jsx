@@ -5,13 +5,17 @@ export default class App extends React.Component {
   constructor() {
     super(); 
     this.state = {
-      context: new (window.AudioContext || window.webkitAudioContext)()
+      context: new (window.AudioContext || window.webkitAudioContext)(),
     }
   }
   render() {
     return(
       <div className='app'>
-        <Beats context={this.state.context}/>
+        <Beats 
+          context={this.state.context}
+          durations={this.props.durations}
+          frequencies={this.props.frequencies}
+        />
       </div>
     );
   }

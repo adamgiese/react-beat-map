@@ -1,22 +1,9 @@
 import React from 'react';
-import Notes from './Notes.jsx';
 import Beat from './Beat.jsx';
 
 export default class Beats extends React.Component {
-  constructor() {
-    super(); 
-    const durations = Array(12).fill(200);
-    const frequencies = [
-      Notes('C',4),
-      Notes('D',4),
-      Notes('E',4),
-      Notes('G',4),
-      Notes('A',4),
-      Notes('C',5),
-      Notes('D',5),
-      Notes('E',5),
-      Notes('G',5),
-    ];
+  constructor(props) {
+    super(props); 
 
     let map = [];
     const params = new URL(document.location).searchParams;
@@ -25,7 +12,7 @@ export default class Beats extends React.Component {
         (beat) => {
           return parseInt(beat, 36) //convert to decimal
           .toString(2) //convert to binary
-          .padStart(frequencies.length, 0) //ensure each array is the correct length
+          .padStart(props.frequencies.length, 0) //ensure each array is the correct length
           .split('') // set as array
           .map(
             (tile) => {
@@ -35,16 +22,14 @@ export default class Beats extends React.Component {
         }
       );
     } else {
-      map = Array(durations.length).fill(null);
+      map = Array(props.durations.length).fill(null);
       map.forEach(function(beat, index) {
-        map[index] = Array(frequencies.length).fill(false);
+        map[index] = Array(props.frequencies.length).fill(false);
       });
     }
 
     this.state = {
       current: 0,
-      frequencies: frequencies,
-      durations: durations,
       map: map
     };  
   }
@@ -80,8 +65,8 @@ export default class Beats extends React.Component {
 
   componentDidMount() {
     const iterate = () => {
-      const newCurrent = (this.state.current + 1 >= this.state.durations.length ? 0 : this.state.current + 1);
-      const duration = this.state.durations[newCurrent];
+      const newCurrent = (this.state.current + 1 >= this.props.durations.length ? 0 : this.state.current + 1);
+      const duration = this.props.durations[newCurrent];
 
       this.setState({
         'current': newCurrent
@@ -92,15 +77,15 @@ export default class Beats extends React.Component {
   }
   
   render() {
-    const beats = this.state.durations.map(
+    const beats = this.props.durations.map(
       (beat, index) => {
         const isCurrent = this.state.current === index;
         return <Beat
           activeTiles={this.state.map[index]}
           beatIndex={index}
           context={this.props.context}
-          duration={this.state.durations[index]}
-          frequencies={this.state.frequencies}
+          duration={this.props.durations[index]}
+          frequencies={this.props.frequencies}
           isCurrent={isCurrent}
           onClick = {(beatIndex, tileIndex) => this.handleTileClick(beatIndex, tileIndex)}
         />
