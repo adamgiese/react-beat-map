@@ -14,13 +14,13 @@ export default class Sound { //edited from https://css-tricks.com/introduction-w
   play(value, time, duration=1) {
     this.init();
     this.oscillator.frequency.value = value;
-    this.gainNode.gain.setValueAtTime(1, this.context.currentTime);
+    this.gainNode.gain.setValueAtTime(.1, this.context.currentTime);
     this.oscillator.start(time);
     this.stop(time, duration);
   }
 
   stop(time, duration) {
-    this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + duration/1000);
-    this.oscillator.stop(time + duration/1000);
+    this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + duration/300);
+    this.oscillator.stop(time + duration/300);
   }
 }
