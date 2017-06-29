@@ -63,6 +63,7 @@ export default class Beats extends React.Component {
       (beat, index) => {
         const isCurrent = this.state.current === index;
         return <Beat
+          key={index}
           activeTiles={this.state.map[index]}
           beatIndex={index}
           context={this.props.context}

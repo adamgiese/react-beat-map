@@ -7,6 +7,7 @@ const Beat = (props) => {
   const tiles = props.frequencies.map(
     (tile, index) =>
       <Tile
+        key={index}
         tileIndex={index}
         isActive={props.activeTiles[index]}
         isCurrent={props.isCurrent}
