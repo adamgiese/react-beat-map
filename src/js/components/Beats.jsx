@@ -1,57 +1,39 @@
+/* global URL, document, window, history */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Beat from './Beat.jsx';
+import { mapFromQuery, mapToQuery } from './Utils.jsx';
+/* eslint-ensable no-unused-vars */
 
 export default class Beats extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
 
     let map = [];
     const params = new URL(document.location).searchParams;
     if (params.get('beats')) {
-      map = params.get('beats').split('|').map(
-        (beat) => {
-          return parseInt(beat, 36) //convert to decimal
-          .toString(2) //convert to binary
-          .padStart(props.frequencies.length, 0) //ensure each array is the correct length
-          .split('') // set as array
-          .map(
-            (tile) => {
-              return (tile === "1") ? true : false;
-            }
-          );
-        }
-      );
+      map = mapFromQuery(params.get('beats'), props.frequencies.length);
     } else {
       map = Array(props.durations.length).fill(null);
-      map.forEach(function(beat, index) {
+      map.forEach((beat, index) => {
         map[index] = Array(props.frequencies.length).fill(false);
       });
     }
 
     this.state = {
       current: 0,
-      map: map
-    };  
+      map,
+    };
   }
 
   handleTileClick(beatIndex, tileIndex) {
-    let newMap = this.state.map.slice();
+    const newMap = this.state.map.slice();
     newMap[beatIndex][tileIndex] = !newMap[beatIndex][tileIndex];
 
-    const mapURL = newMap.map(
-      (beat) => {
-        return parseInt(beat.map(
-          (tile) => {
-            return tile ? 1 : 0;
-          }
-        ).join(''), 2).toString(36);
-      }
-    ).join('|');
-    console.log(mapURL);
-
+    const mapURL = mapToQuery(newMap);
     if (history.replaceState) {
       const historyState = {
-        beats: mapURL
+        beats: mapURL,
       };
       const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${window.location.pathname}?beats=${mapURL}`;
 
@@ -59,8 +41,8 @@ export default class Beats extends React.Component {
     }
 
     this.setState({
-      map: newMap
-    })
+      map: newMap,
+    });
   }
 
   componentDidMount() {
@@ -69,13 +51,13 @@ export default class Beats extends React.Component {
       const duration = this.props.durations[newCurrent];
 
       this.setState({
-        'current': newCurrent
+        current: newCurrent,
       });
-      setTimeout(iterate, duration)
+      setTimeout(iterate, duration);
     };
-    iterate();  
+    iterate();
   }
-  
+
   render() {
     const beats = this.props.durations.map(
       (beat, index) => {
@@ -88,7 +70,7 @@ export default class Beats extends React.Component {
           frequencies={this.props.frequencies}
           isCurrent={isCurrent}
           onClick = {(beatIndex, tileIndex) => this.handleTileClick(beatIndex, tileIndex)}
-        />
+        />;
       }
     );
     return <div className='beats'>{beats}</div>;

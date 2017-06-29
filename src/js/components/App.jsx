@@ -1,17 +1,20 @@
+/* global window */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Beats from './Beats.jsx';
+/* eslint-enable no-unused-vars */
 
 export default class App extends React.Component {
   constructor() {
-    super(); 
+    super();
     this.state = {
       context: new (window.AudioContext || window.webkitAudioContext)(),
-    }
+    };
   }
   render() {
-    return(
+    return (
       <div className='app'>
-        <Beats 
+        <Beats
           context={this.state.context}
           durations={this.props.durations}
           frequencies={this.props.frequencies}

@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Tile from './Tile.jsx';
+/* eslint-ensable no-unused-vars */
 
 const Beat = (props) => {
   const tiles = props.frequencies.map(
-    (tile, index) => {
-      return <Tile
+    (tile, index) =>
+      <Tile
         tileIndex={index}
         isActive={props.activeTiles[index]}
         isCurrent={props.isCurrent}
@@ -14,7 +16,6 @@ const Beat = (props) => {
         onClick={(beatIndex, tileIndex) => props.onClick(beatIndex, tileIndex)}
         context={props.context}
       />
-    }
   );
   const activeClass = props.isCurrent ? 'active' : 'inactive';
 
@@ -24,6 +25,6 @@ const Beat = (props) => {
       <div className={'beat-indicator'}></div>
     </div>
   );
-}
+};
 
 export default Beat;

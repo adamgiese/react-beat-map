@@ -18,7 +18,8 @@ export default function note(name, octave) {
     Bb: 29.14,
     B: 30.87,
   };
-  if ( notes[name] ) {
-    return notes[name] * Math.pow(2, octave);
+  if (notes[name]) {
+    return notes[name] * (2 ** octave);
   }
+  return 0;
 }

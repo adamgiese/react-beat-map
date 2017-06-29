@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "extends": ["airbnb-base"],
+  "rules": {
+    "comma-dangle": ["error", {
+      "functions": "ignore",
+      "objects": "always-multiline",
+      "arrays": "always-multiline",
+    }],
+    "max-len": ["error", 150],
+  }
+}
