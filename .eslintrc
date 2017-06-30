@@ -11,5 +11,6 @@
       "arrays": "always-multiline",
     }],
     "max-len": ["error", 150],
+    "linebreak-style": "off",
   }
 }
