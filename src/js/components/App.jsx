@@ -1,6 +1,7 @@
 /* global window */
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Beats from './Beats.jsx';
 /* eslint-enable no-unused-vars */
 
@@ -24,3 +25,7 @@ export default class App extends React.Component {
   }
 }
 
+App.propTypes = {
+  durations: PropTypes.arrayOf(PropTypes.number).isRequired,
+  frequencies: PropTypes.arrayOf(PropTypes.number).isRequired,
+};

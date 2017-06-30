@@ -1,6 +1,7 @@
 /* global URL, document, window, history */
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Beat from './Beat.jsx';
 import { mapFromQuery, mapToQuery } from './Utils.jsx';
 /* eslint-ensable no-unused-vars */
@@ -77,3 +78,9 @@ export default class Beats extends React.Component {
     return <div className='beats'>{beats}</div>;
   }
 }
+
+Beats.propTypes = {
+  context: PropTypes.object.isRequired,
+  frequencies: PropTypes.arrayOf(PropTypes.number).isRequired,
+  durations: PropTypes.arrayOf(PropTypes.number).isRequired,
+};

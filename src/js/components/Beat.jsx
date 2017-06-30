@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tile from './Tile.jsx';
 /* eslint-ensable no-unused-vars */
 
@@ -29,3 +30,13 @@ const Beat = (props) => {
 };
 
 export default Beat;
+
+Beat.propTypes = {
+  activeTiles: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  beatIndex: PropTypes.number.isRequired,
+  context: PropTypes.object.isRequired,
+  duration: PropTypes.number.isRequired,
+  frequencies: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isCurrent: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};

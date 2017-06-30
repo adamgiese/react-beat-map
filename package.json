@@ -28,6 +28,7 @@
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "path": "^0.12.7",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "sass-loader": "^6.0.6",
