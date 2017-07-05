@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import Beats from './Beats.jsx';
-import { scales } from './Utils.jsx';
 /* eslint-enable no-unused-vars */
 
 export default class App extends React.Component {

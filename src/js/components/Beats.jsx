@@ -3,7 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Beat from './Beat.jsx';
-import { mapFromQuery, mapToQuery, stateToUrl, scales } from './Utils.jsx';
+import { mapFromQuery, mapToQuery, stateToUrl } from '../utils/uri';
+import scales from '../utils/scales';
 /* eslint-ensable no-unused-vars */
 
 export default class Beats extends React.Component {
