@@ -22,7 +22,7 @@ export function mapToQuery(map) {
 export function stateToUrl(state) {
   const mapURL = mapToQuery(state.map);
   const baseUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${window.location.pathname}?`;
-  const url = `${baseUrl}beats=${mapURL}&scale=${state.scale}`;
+  const url = `${baseUrl}beats=${mapURL}&scale=${state.scale}&duration=${state.duration}`;
 
   history.replaceState({}, 'Beats', url);
 }
