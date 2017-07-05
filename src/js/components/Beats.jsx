@@ -28,7 +28,7 @@ export default class Beats extends React.Component {
     }
 
     this.state = {
-      current: 0,
+      current: -1,
       map,
       scale,
       duration,
