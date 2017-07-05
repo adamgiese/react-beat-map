@@ -1,3 +1,5 @@
+/* global window, history */
+
 export function mapFromQuery(query, frequencyLength) {
   return query.split('|').map(
     beat => parseInt(beat, 36) // convert to decimal
@@ -16,6 +18,14 @@ export function mapToQuery(map) {
       tile => (tile ? 1 : 0)
     ).join(''), 2).toString(36)
   ).join('|');
+}
+
+export function stateToUrl(state) {
+  const mapURL = mapToQuery(state.map);
+  const baseUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${window.location.pathname}?`;
+  const url = `${baseUrl}beats=${mapURL}&scale=${state.scale}`;
+
+  history.replaceState({}, 'Beats', url);
 }
 
 export function note(name, octave) {

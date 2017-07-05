@@ -1,29 +1,35 @@
-/* global URL, document, window, history */
+/* global URL, document */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Beat from './Beat.jsx';
-import { mapFromQuery, mapToQuery } from './Utils.jsx';
+import { mapFromQuery, mapToQuery, stateToUrl, scales } from './Utils.jsx';
 /* eslint-ensable no-unused-vars */
 
 export default class Beats extends React.Component {
   constructor(props) {
     super(props);
 
-    let map = [];
     const params = new URL(document.location).searchParams;
+
+    const scale = (params.get('scale') ? params.get('scale') : 'pentatonic');
+    const frequencies = scales(scale);
+
+    let map = [];
     if (params.get('beats')) {
-      map = mapFromQuery(params.get('beats'), props.frequencies.length);
+      map = mapFromQuery(params.get('beats'), frequencies.length);
     } else {
       map = Array(props.durations.length).fill(null);
       map.forEach((beat, index) => {
-        map[index] = Array(props.frequencies.length).fill(false);
+        map[index] = Array(frequencies.length).fill(false);
       });
     }
+
 
     this.state = {
       current: 0,
       map,
+      scale,
     };
   }
 
@@ -31,19 +37,10 @@ export default class Beats extends React.Component {
     const newMap = this.state.map.slice();
     newMap[beatIndex][tileIndex] = !newMap[beatIndex][tileIndex];
 
-    const mapURL = mapToQuery(newMap);
-    if (history.replaceState) {
-      const historyState = {
-        beats: mapURL,
-      };
-      const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${window.location.pathname}?beats=${mapURL}`;
-
-      history.pushState(historyState, 'Beats', url);
-    }
-
     this.setState({
       map: newMap,
     });
+    stateToUrl(this.state);
   }
 
   componentDidMount() {
@@ -69,7 +66,7 @@ export default class Beats extends React.Component {
           beatIndex={index}
           context={this.props.context}
           duration={this.props.durations[index]}
-          frequencies={this.props.frequencies}
+          frequencies={scales(this.state.scale)}
           isCurrent={isCurrent}
           onClick = {(beatIndex, tileIndex) => this.handleTileClick(beatIndex, tileIndex)}
         />;
@@ -81,6 +78,5 @@ export default class Beats extends React.Component {
 
 Beats.propTypes = {
   context: PropTypes.object.isRequired,
-  frequencies: PropTypes.arrayOf(PropTypes.number).isRequired,
   durations: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
