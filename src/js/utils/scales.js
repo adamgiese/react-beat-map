@@ -2,19 +2,14 @@ function note(name, octave) {
   const notes = {
     C: 16.35,
     Cs: 17.32,
-    Db: 17.32,
     D: 18.35,
     Ds: 19.45,
-    Eb: 19.45,
     E: 20.60,
     F: 21.83,
     Fs: 23.12,
-    Gb: 23.12,
     G: 24.50,
     Gs: 25.96,
-    Ab: 25.96,
     A: 27.50,
-    As: 29.14,
     Bb: 29.14,
     B: 30.87,
   };
@@ -24,156 +19,41 @@ function note(name, octave) {
   return 0;
 }
 
-function scales(scaleName) {
+const noteNames = ['C', 'Cs', 'D', 'Ds', 'E', 'F', 'Fs', 'G', 'Gs', 'A', 'Bb', 'B'];
+
+function scaleFromPattern(pattern, root = 'C', initialOctave = 3, numberOfOctaves = 3) {
+  let i = 0;
+  const scale = [];
+  const initialIndex = noteNames.indexOf(root);
+
+  for (i; i <= numberOfOctaves * 12; i += pattern[(scale.length - 1) % pattern.length]) {
+    const noteName = noteNames[(i + initialIndex) % 12];
+    const octave = initialOctave + Math.floor((i + initialIndex) / 12);
+    scale.push(note(noteName, octave));
+  }
+  return scale;
+}
+
+function scales(scaleName, root = 'C', initialOctave = 3, numberOfOctaves = 3) {
   switch (scaleName) {
+    case 'whole':
+      return scaleFromPattern([2], root, initialOctave, numberOfOctaves);
     case 'chromatic':
-      return [
-        note('C', 3),
-        note('Cs', 3),
-        note('D', 3),
-        note('Ds', 3),
-        note('E', 3),
-        note('F', 3),
-        note('Fs', 3),
-        note('G', 3),
-        note('Gs', 3),
-        note('A', 3),
-        note('Bb', 3),
-        note('B', 3),
-        note('C', 4),
-        note('Cs', 4),
-        note('D', 4),
-        note('Ds', 4),
-        note('E', 4),
-        note('F', 4),
-        note('Fs', 4),
-        note('G', 4),
-        note('Gs', 4),
-        note('A', 4),
-        note('Bb', 4),
-        note('B', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([1], root, initialOctave, numberOfOctaves);
     case 'major':
-      return [
-        note('C', 3),
-        note('D', 3),
-        note('E', 3),
-        note('F', 3),
-        note('G', 3),
-        note('A', 3),
-        note('B', 3),
-        note('C', 4),
-        note('D', 4),
-        note('E', 4),
-        note('F', 4),
-        note('G', 4),
-        note('A', 4),
-        note('B', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([2, 2, 1, 2, 2, 2, 1], root, initialOctave, numberOfOctaves);
     case 'minor':
-      return [
-        note('C', 3),
-        note('D', 3),
-        note('Eb', 3),
-        note('F', 3),
-        note('G', 3),
-        note('Ab', 3),
-        note('Bb', 3),
-        note('C', 4),
-        note('D', 4),
-        note('Eb', 4),
-        note('F', 4),
-        note('G', 4),
-        note('Ab', 4),
-        note('Bb', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([2, 1, 2, 2, 1, 2, 2], root, initialOctave, numberOfOctaves);
     case 'lydian':
-      return [
-        note('C', 3),
-        note('D', 3),
-        note('E', 3),
-        note('Fs', 3),
-        note('G', 3),
-        note('A', 3),
-        note('B', 3),
-        note('C', 4),
-        note('D', 4),
-        note('E', 4),
-        note('Fs', 4),
-        note('G', 4),
-        note('A', 4),
-        note('B', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([2, 2, 2, 1, 2, 2, 1], root, initialOctave, numberOfOctaves);
     case 'mixolydian':
-      return [
-        note('C', 3),
-        note('D', 3),
-        note('E', 3),
-        note('F', 3),
-        note('G', 3),
-        note('A', 3),
-        note('Bb', 3),
-        note('C', 4),
-        note('D', 4),
-        note('E', 4),
-        note('F', 4),
-        note('G', 4),
-        note('A', 4),
-        note('Bb', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([2, 2, 1, 2, 2, 1, 2], root, initialOctave, numberOfOctaves);
     case 'pentatonic':
-      return [
-        note('C', 3),
-        note('D', 3),
-        note('E', 3),
-        note('G', 3),
-        note('A', 3),
-        note('C', 4),
-        note('D', 4),
-        note('E', 4),
-        note('G', 4),
-        note('A', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([2, 2, 3, 2, 4], root, initialOctave, numberOfOctaves);
     case 'octatonic':
-      return [
-        note('C', 3),
-        note('Cs', 3),
-        note('Ds', 3),
-        note('E', 3),
-        note('Fs', 3),
-        note('G', 3),
-        note('A', 3),
-        note('Bb', 3),
-        note('C', 4),
-        note('Cs', 4),
-        note('Ds', 4),
-        note('E', 4),
-        note('Fs', 4),
-        note('G', 4),
-        note('A', 4),
-        note('Bb', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([1, 2], root, initialOctave, numberOfOctaves);
     default: // return pentatonic if no scale found
-      return [
-        note('C', 3),
-        note('D', 3),
-        note('E', 3),
-        note('G', 3),
-        note('A', 3),
-        note('C', 4),
-        note('D', 4),
-        note('E', 4),
-        note('G', 4),
-        note('A', 4),
-        note('C', 5),
-      ];
+      return scaleFromPattern([2, 2, 3, 2, 4], root, initialOctave, numberOfOctaves);
   }
 }
 
