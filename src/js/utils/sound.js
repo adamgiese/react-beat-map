@@ -8,11 +8,11 @@ export default class Sound { // edited from https://css-tricks.com/introduction-
     this.gainNode = this.context.createGain();
     this.oscillator.connect(this.gainNode);
     this.gainNode.connect(this.context.destination);
-    this.oscillator.type = 'sine';
   }
 
-  play(value, time, duration = 1) {
+  play(value, time, duration = 1, tone = 'sine') {
     this.init();
+    this.oscillator.tone = tone;
     this.oscillator.frequency.value = value;
     this.gainNode.gain.setValueAtTime(0.1, this.context.currentTime);
     this.oscillator.start(time);

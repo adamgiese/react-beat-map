@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Sound from './Sound.jsx';
+import Sound from '../utils/sound';
 /* eslint-ensable no-unused-vars */
 
 const Tile = (props) => {
   if (props.isActive && props.isCurrent) {
     const note = new Sound(props.context);
     const now = props.context.currentTime;
-    note.play(props.frequency, now, props.duration);
+    note.play(props.frequency, now, props.duration, 'sine');
   }
   const activeClass = props.isActive ? 'active' : 'inactive';
   return (
