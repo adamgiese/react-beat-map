@@ -8,7 +8,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onChange: (duration) => {
-    console.log(duration);
     dispatch(changeDuration(duration));
   },
 });
