@@ -77,7 +77,7 @@ function scales(scaleName, root = 'C', initialOctave = 3, numberOfOctaves = 3) {
 
     // exotic
     case 'pentatonic':
-      return scaleFromPattern([2, 2, 3, 2, 4], root, initialOctave, numberOfOctaves);
+      return scaleFromPattern([2, 2, 3, 2, 3], root, initialOctave, numberOfOctaves);
     case 'japanese':
       return scaleFromPattern([2, 1, 4, 1, 4], root, initialOctave, numberOfOctaves);
     case 'phrygian-dominant':
@@ -86,7 +86,7 @@ function scales(scaleName, root = 'C', initialOctave = 3, numberOfOctaves = 3) {
     case 'chromatic':
       return scaleFromPattern([1], root, initialOctave, numberOfOctaves);
     default: // return pentatonic if no scale found
-      return scaleFromPattern([2, 2, 3, 2, 4], root, initialOctave, numberOfOctaves);
+      return scaleFromPattern([2, 2, 3, 2, 3], root, initialOctave, numberOfOctaves);
   }
 }
 
