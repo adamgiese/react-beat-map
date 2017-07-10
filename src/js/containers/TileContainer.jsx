@@ -2,6 +2,10 @@ import { connect } from 'react-redux';
 import { toggleTile } from '../actions/index';
 import Tile from '../components/Tile.jsx';
 
+const mapStateToProps = (state, ownProps) => ({
+  isActive: state.map[ownProps.beatIndex][ownProps.tileIndex],
+});
+
 const mapDispatchToProps = dispatch => ({
   onClick: (beatIndex, tileIndex) => {
     dispatch(toggleTile(beatIndex, tileIndex));
@@ -9,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const TileContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Tile);
 

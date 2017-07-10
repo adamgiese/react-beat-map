@@ -10,7 +10,6 @@ const Beat = (props) => {
       <Tile
         key={index}
         tileIndex={index}
-        isActive={props.activeTiles[index]}
         isCurrent={props.isCurrent}
         beatIndex={props.beatIndex}
         frequency={props.frequencies[index]}
