@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tile from './Tile.jsx';
+import Tile from '../containers/TileContainer.jsx';
 /* eslint-ensable no-unused-vars */
 
 const Beat = (props) => {
@@ -15,7 +15,6 @@ const Beat = (props) => {
         beatIndex={props.beatIndex}
         frequency={props.frequencies[index]}
         duration={props.duration}
-        onClick={(beatIndex, tileIndex) => props.onClick(beatIndex, tileIndex)}
         context={props.context}
       />
   );
@@ -38,5 +37,4 @@ Beat.propTypes = {
   duration: PropTypes.number.isRequired,
   frequencies: PropTypes.arrayOf(PropTypes.number).isRequired,
   isCurrent: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
 };

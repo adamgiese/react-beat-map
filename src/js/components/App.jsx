@@ -1,22 +1,16 @@
 /* global window */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import Beats from './Beats.jsx';
+import BeatsContainer from '../containers/BeatsContainer.jsx';
 /* eslint-enable no-unused-vars */
 
-export default class App extends React.Component {
-  constructor() {
-    super();
+const App = () => {
+  const context = new (window.AudioContext || window.webkitAudioContext)();
+  return (
+    <div className='app'>
+      <BeatsContainer context={context} />
+    </div>
+  );
+};
 
-    this.state = {
-      context: new (window.AudioContext || window.webkitAudioContext)(),
-    };
-  }
-  render() {
-    return (
-      <div className='app'>
-        <Beats context={this.state.context} />
-      </div>
-    );
-  }
-}
+export default App;
