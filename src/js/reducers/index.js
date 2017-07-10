@@ -1,5 +1,5 @@
 const handleActions = (state = [], action) => {
-  const newMap = state.map.slice();
+  const newMap = state.map.map(array => array.slice());
   switch (action.type) {
     case 'CHANGE_SCALE':
       return { ...state, scale: action.scale };
