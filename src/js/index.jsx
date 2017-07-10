@@ -13,9 +13,9 @@ import { stateToUrl } from './utils/uri';
 require('./../scss/styles.scss');
 
 const uriMiddleware = ({ getState }) => next => (action) => {
+  next(action);
   const state = getState();
   stateToUrl(state);
-  next(action);
 };
 
 
