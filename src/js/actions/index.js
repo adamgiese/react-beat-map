@@ -19,3 +19,15 @@ export const toggleTile = (beatIndex, tileIndex) => (
     tileIndex,
   }
 );
+
+export const removeBeat = () => (
+  {
+    type: 'REMOVE_BEAT',
+  }
+);
+
+export const addBeat = () => (
+  {
+    type: 'ADD_BEAT',
+  }
+);

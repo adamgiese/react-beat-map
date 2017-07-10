@@ -1,11 +1,19 @@
 .settings {
   display: flex;
+  align-items: center;
   color: white;
-  align-items: flex-start;
   width: 100%;
   padding: 1rem;
 
   input {
     margin-left: 1em;
+    height: 2em;
+  }
+
+  &--button {
+    margin-left: 1em;
+    height: 2em;
+    border: none;
+    padding: .25em .5em;
   }
 }

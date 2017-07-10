@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { changeDuration } from '../actions/index';
+import { changeDuration, removeBeat, addBeat } from '../actions/index';
 import Settings from '../components/Settings.jsx';
 
 const mapStateToProps = state => ({
@@ -9,6 +9,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onChange: (duration) => {
     dispatch(changeDuration(duration));
+  },
+  onRemoveBeat: () => {
+    dispatch(removeBeat());
+  },
+  onAddBeat: () => {
+    dispatch(addBeat());
   },
 });
 

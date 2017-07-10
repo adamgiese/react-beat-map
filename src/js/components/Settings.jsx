@@ -16,6 +16,12 @@ const Settings = props => (
         onChange={event => props.onChange(Number(event.target.value))}
       />
     </label>
+    <button className='settings--button' onClick={() => props.onRemoveBeat()}>
+      Remove Beat
+    </button>
+    <button className='settings--button' onClick={() => props.onAddBeat()}>
+      Add Beat
+    </button>
   </div>
 );
 
