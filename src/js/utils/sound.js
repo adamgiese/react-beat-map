@@ -12,7 +12,7 @@ export default class Sound { // edited from https://css-tricks.com/introduction-
 
   play(value, time, length = 1, tone = 'sine') {
     this.init();
-    this.oscillator.tone = tone;
+    this.oscillator.type = tone;
     this.oscillator.frequency.value = value;
     this.gainNode.gain.setValueAtTime(0.1, this.context.currentTime);
     this.oscillator.start(time);
