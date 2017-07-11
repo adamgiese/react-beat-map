@@ -16,6 +16,17 @@ const Settings = props => (
         onChange={event => props.onChange(Number(event.target.value))}
       />
     </label>
+    <label className='settings--label' title='Multiplier'>
+      Resonance
+      <input
+        type='number'
+        min='.1'
+        max='10'
+        step='.1'
+        defaultValue={props.resonance}
+        onChange={event => props.onChangeResonance(Number(event.target.value))}
+      />
+    </label>
     <button className='settings--button' onClick={() => props.onRemoveBeat()}>
       Remove Beat
     </button>

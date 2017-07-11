@@ -31,3 +31,10 @@ export const addBeat = () => (
     type: 'ADD_BEAT',
   }
 );
+
+export const changeResonance = resonance => (
+  {
+    type: 'CHANGE_RESONANCE',
+    resonance,
+  }
+);

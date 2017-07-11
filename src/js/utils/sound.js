@@ -10,17 +10,17 @@ export default class Sound { // edited from https://css-tricks.com/introduction-
     this.gainNode.connect(this.context.destination);
   }
 
-  play(value, time, duration = 1, tone = 'sine') {
+  play(value, time, length = 1, tone = 'sine') {
     this.init();
     this.oscillator.tone = tone;
     this.oscillator.frequency.value = value;
     this.gainNode.gain.setValueAtTime(0.1, this.context.currentTime);
     this.oscillator.start(time);
-    this.stop(time, duration);
+    this.stop(time, length);
   }
 
-  stop(time, duration) {
-    this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + (duration / 300));
-    this.oscillator.stop(time + (duration / 300));
+  stop(time, length) {
+    this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + length);
+    this.oscillator.stop(time + length);
   }
 }

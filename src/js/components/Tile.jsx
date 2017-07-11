@@ -8,7 +8,8 @@ const Tile = (props) => {
   if (props.isActive && props.isCurrent) {
     const note = new Sound(props.context);
     const now = props.context.currentTime;
-    note.play(props.frequency, now, props.duration, 'sine');
+    const length = (props.duration * props.resonance) / 1000;
+    note.play(props.frequency, now, length, 'sine');
   }
   const activeClass = props.isActive ? 'active' : 'inactive';
   return (
