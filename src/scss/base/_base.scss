@@ -7,7 +7,7 @@
 }
 
 body {
-  @include async-font($sans-serif, $sans-serif-fallback);
+  font-family: Courier, monospace;
   min-height: 100vh;
   position: relative;
   text-align: center;
