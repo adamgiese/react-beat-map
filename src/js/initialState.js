@@ -6,6 +6,7 @@ import { mapFromQuery } from './utils/uri';
 
 const params = new URL(document.location).searchParams;
 const scale = params.get('scale') || 'pentatonic';
+const tone = params.get('tone') || 'sine';
 const resonance = params.get('resonance') || 2;
 const duration = Number(params.get('duration')) || 200;
 const frequencies = scales(scale);
@@ -21,9 +22,10 @@ if (params.get('beats')) {
 }
 
 const initialState = {
-  scale,
   duration,
   map,
   resonance,
+  scale,
+  tone,
 };
 export default initialState;

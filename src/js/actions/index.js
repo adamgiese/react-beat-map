@@ -5,6 +5,13 @@ export const changeScale = scale => (
   }
 );
 
+export const changeTone = tone => (
+  {
+    type: 'CHANGE_TONE',
+    tone,
+  }
+);
+
 export const changeDuration = duration => (
   {
     type: 'CHANGE_DURATION',

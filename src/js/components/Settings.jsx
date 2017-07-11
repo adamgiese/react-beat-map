@@ -27,6 +27,12 @@ const Settings = props => (
         onChange={event => props.onChangeResonance(Number(event.target.value))}
       />
     </label>
+    <select className='settings--select' onChange={event => props.onChangeTone(event.target.value)} defaultValue={props.tone}>
+      <option value='sine'>Sine</option>
+      <option value='sawtooth'>Sawtooth</option>
+      <option value='square'>Square</option>
+      <option value='triangle'>Triangle</option>
+    </select>
     <button className='settings--button' onClick={() => props.onRemoveBeat()}>
       Remove Beat
     </button>

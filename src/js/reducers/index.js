@@ -7,6 +7,8 @@ const handleActions = (state = [], action) => {
   switch (action.type) {
     case 'CHANGE_SCALE':
       return { ...state, scale: action.scale };
+    case 'CHANGE_TONE':
+      return { ...state, tone: action.tone };
     case 'CHANGE_RESONANCE':
       return { ...state, resonance: action.resonance };
     case 'CHANGE_DURATION':

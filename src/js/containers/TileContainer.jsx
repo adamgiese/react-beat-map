@@ -5,6 +5,7 @@ import Tile from '../components/Tile.jsx';
 const mapStateToProps = (state, ownProps) => ({
   isActive: state.map[ownProps.beatIndex][ownProps.tileIndex],
   resonance: state.resonance,
+  tone: state.tone,
 });
 
 const mapDispatchToProps = dispatch => ({
