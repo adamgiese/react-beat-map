@@ -20,13 +20,12 @@ const uriMiddleware = ({ getState }) => next => (action) => {
 
 
 /* eslint-disable no-underscore-dangle */
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const enhancer = reduxDevTools ? compose(applyMiddleware(uriMiddleware), reduxDevTools) : applyMiddleware(uriMiddleware);
 const store = createStore(
   reducer,
   initialState,
-  compose(
-    applyMiddleware(uriMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
+  enhancer,
 );
 /* eslint-enable */
 
