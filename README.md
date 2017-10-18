@@ -14,3 +14,9 @@ yarn install
 ```
 
 To start the project, run `yarn start`.
+
+# (Possibly) Upcoming Features
+
+- Scale picker
+- Title and 'Composer' fields
+- Octave length and offset picker
